@@ -11,10 +11,12 @@
     tools:context="com.example.david.happyhours.accueil">
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:id="@+id/layoutTop">
 
         <SearchView
             android:layout_width="wrap_content"
@@ -32,12 +34,22 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layoutListe"
+        android:layout_below="@id/layoutTop"
+        android:layout_above="@id/layoutVoirPlus"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/linearLayout"
+        android:layout_above="@+id/layoutBottom"
         android:layout_centerHorizontal="true"
-        android:id="@+id/linearLbottom">
+        android:id="@+id/layoutVoirPlus">
 
         <Button
             android:layout_width="wrap_content"
@@ -53,7 +65,8 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
-        android:id="@+id/linearLayout">
+        android:id="@+id/layoutBottom"
+        android:orientation="horizontal">
 
         <Button
             android:layout_width="wrap_content"
