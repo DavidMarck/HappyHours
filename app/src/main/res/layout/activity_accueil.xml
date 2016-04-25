@@ -41,6 +41,10 @@
         android:layout_above="@id/layoutVoirPlus"
         android:orientation="horizontal">
 
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView" />
     </LinearLayout>
 
     <LinearLayout
@@ -55,9 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Voir plus..."
-            android:id="@+id/button"
-            android:layout_above="@+id/linearLayout"
-            android:layout_centerHorizontal="true" />
+            android:id="@+id/btnVoirPlus" />
     </LinearLayout>
     
     <LinearLayout
@@ -72,17 +74,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Favoris"
+            android:width="115dp"
             android:id="@+id/btnFavoris" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Barathon"
+            android:width="115dp"
             android:id="@+id/btnBarathon" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:width="115dp"
             android:text="Paramètres"
             android:id="@+id/btnParam" />
 
