@@ -4,15 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.david.happyhours.accueil">
 
+
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#4169e1"
+        android:minHeight="?android:attr/actionBarSize" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/toolbar"
         android:orientation="horizontal"
         android:id="@+id/layoutTop">
 
@@ -23,8 +30,8 @@
         </SearchView>
 
         <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_gravity="center|right"
             android:layout_weight="2">
         </Spinner>
@@ -36,61 +43,12 @@
         android:layout_height="match_parent"
         android:id="@+id/layoutListe"
         android:layout_below="@id/layoutTop"
-        android:orientation="horizontal"
-        android:layout_above="@+id/layoutBottom">
+        android:orientation="vertical">
 
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/listView" />
-
-    </LinearLayout>
-    
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:id="@+id/layoutBottom">
-
-        <Toolbar
-            tools:targetApi="LOLLIPOP"
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/gray"
-            android:visibility="gone">
-        </Toolbar>
-
-        <!--<Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|center"
-            android:text="Voir plus..."
-            android:id="@+id/btnVoirPlus" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:text="Favoris"
-            android:id="@+id/btnFavoris" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:text="Barathon"
-            android:id="@+id/btnBarathon" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:text="Paramètres"
-            android:id="@+id/btnParam" /> -->
+            android:id="@+id/listViewBars" />
 
     </LinearLayout>
 
