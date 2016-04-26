@@ -30,9 +30,9 @@ public class accueil extends AppCompatActivity {
         // On définit notre Toolbar en tant qu'ActionBar
         setSupportActionBar(toolbar);
 
-        //afficher le bouton retour
-        getSupportActionBar().setHomeButtonEnabled(true);
+        // Affichage du bouton retour dans la Toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         // Instanciation d'un Drawer
         this.drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);

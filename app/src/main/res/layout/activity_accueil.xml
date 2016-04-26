@@ -66,4 +66,6 @@
         <include layout="@layout/drawer"/>
     </FrameLayout>
 
+    <!-- http://tutos-android-france.com/menu-ajouter-des-actions-a-lactionbar/ -->
+
 </android.support.v4.widget.DrawerLayout>
