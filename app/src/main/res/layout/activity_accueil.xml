@@ -23,31 +23,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_below="@+id/toolbar"
-            android:orientation="horizontal"
-            android:id="@+id/layoutTop">
-
-            <SearchView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center">
-            </SearchView>
-
-            <Spinner
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|right"
-                android:layout_weight="2">
-            </Spinner>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/layoutListe"
-            android:layout_below="@id/layoutTop"
+            android:layout_below="@id/toolbar"
             android:orientation="vertical">
 
             <ListView
@@ -58,6 +36,8 @@
 
     </RelativeLayout>
 
+    <!-- Layout contenant le Drawer.
+    Voir @layout/drawer.xml pour gérer le contenu du Drawer -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -65,7 +45,5 @@
 
         <include layout="@layout/drawer"/>
     </FrameLayout>
-
-    <!-- http://tutos-android-france.com/menu-ajouter-des-actions-a-lactionbar/ -->
 
 </android.support.v4.widget.DrawerLayout>

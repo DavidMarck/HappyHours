@@ -11,14 +11,22 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.List;
 
 public class accueil extends AppCompatActivity {
 
     private Toolbar toolbar;
+    private ListView listViewDrawer;
+    private final String[] drawerItems = new String[]{
+            "Favoris","Barathon","Paramètres"
+    };
 
-    DrawerLayout drawerLayout;
-    ActionBarDrawerToggle drawerToggle;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +50,10 @@ public class accueil extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // code de gestion quand click recherche
+                // code de gestion quand click recherche à mettre ici
+
+                // pour fermer la SearchView
+                invalidateOptionsMenu();
                 return false;
             }
 
@@ -95,5 +106,11 @@ public class accueil extends AppCompatActivity {
         this.drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         this.drawerToggle = new ActionBarDrawerToggle(this,this.drawerLayout,0,0);
         this.drawerLayout.addDrawerListener(this.drawerToggle);
+
+        // Instanciation de la ListView contenue dans le Drawer
+        listViewDrawer = (ListView) findViewById(R.id.listViewDrawer);
+        ArrayAdapter<String> adapterDrawerItems = new ArrayAdapter<String>(accueil.this,
+        android.R.layout.simple_list_item_1, drawerItems);
+        listViewDrawer.setAdapter(adapterDrawerItems);
     }
 }
