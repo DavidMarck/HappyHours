@@ -7,14 +7,14 @@ package com.example.david.happyhours;
 //La base bar en elle même
 public class bar {
 
-    int id;
-    String nom;
+    private long id;
+    private String nom;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -26,8 +26,9 @@ public class bar {
         this.nom = nom;
     }
 
-    public bar(int id, String nom) {
-        this.id = id;
-        this.nom = nom;
+
+    @Override
+    public String toString() {
+        return nom;
     }
 }
