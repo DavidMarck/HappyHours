@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 /**
  * Created by David on 02/05/2016.
  */
-public abstract class DatabaseDAO {
+public class DatabaseDAO {
 
     // Le nom du fichier qui représente ma base
     protected static final String DATABASE_NAME = "happy_hours.db";

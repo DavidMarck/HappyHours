@@ -3,7 +3,6 @@ package com.example.david.happyhours;
 import android.content.res.Configuration;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,9 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import java.util.List;
 
 public class accueil extends AppCompatActivity {
 
@@ -27,6 +23,8 @@ public class accueil extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
+
+    private DatabaseDAO databaseDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +90,10 @@ public class accueil extends AppCompatActivity {
     * Méthode d'initialisation des composants graphiques de l'interface de l'activité
     * */
     public void initialisations() {
+
+        // Création et ouverture de la base de données
+        databaseDAO = new DatabaseDAO(this);
+        databaseDAO.open();
 
         // Instanciation de la Toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);

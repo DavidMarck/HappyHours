@@ -116,6 +116,7 @@ public class BarDAO extends DatabaseDAO {
         return tousLesBar;
     }
 
+    // Cette méthode permet de convertir un cursor en un livre
     private Bar cursorToBar(Cursor cursor) {
         Bar Bar = new Bar();
         Bar.setId(cursor.getLong(0));
