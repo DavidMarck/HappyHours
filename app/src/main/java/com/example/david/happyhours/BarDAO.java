@@ -78,10 +78,10 @@ public class BarDAO extends DatabaseDAO {
         ContentValues values = new ContentValues();
         values.put(COLUMN_BAR_NOM, bar.getNom());
         values.put(COLUMN_BAR_ADR, bar.getAdresse());
-        values.put(COLUMN_BAR_HOR_OUV, bar.getHoraire_ouv().toString());
-        values.put(COLUMN_BAR_HOR_FERM, bar.getHoraire_ferm().toString());
-        values.put(COLUMN_BAR_HH_DEB, bar.getHoraire_hh_deb().toString());
-        values.put(COLUMN_BAR_HH_FIN, bar.getHoraire_hh_fin().toString());
+        values.put(COLUMN_BAR_HOR_OUV, bar.getHoraire_ouv());
+        values.put(COLUMN_BAR_HOR_FERM, bar.getHoraire_ferm());
+        values.put(COLUMN_BAR_HH_DEB, bar.getHoraire_hh_deb());
+        values.put(COLUMN_BAR_HH_FIN, bar.getHoraire_hh_fin());
         values.put(COLUMN_BAR_IMG, bar.getImage());
         values.put(COLUMN_BAR_FAV, bar.getEstFavori());
         long insertId = database.insert(TABLE_BAR, null,
@@ -126,11 +126,18 @@ public class BarDAO extends DatabaseDAO {
         return tousLesBar;
     }
 
-    // Cette méthode permet de convertir un cursor en un livre
+    // Cette méthode permet de convertir un cursor en un bar
     private Bar cursorToBar(Cursor cursor) {
         Bar Bar = new Bar();
         Bar.setId(cursor.getLong(0));
         Bar.setNom(cursor.getString(1));
+        Bar.setAdresse(cursor.getString(2));
+        Bar.setHoraire_ouv(cursor.getString(3));
+        Bar.setHoraire_ferm(cursor.getString(4));
+        Bar.setHoraire_hh_deb(cursor.getString(5));
+        Bar.setHoraire_hh_fin(cursor.getString(6));
+        Bar.setImage(cursor.getString(7));
+        Bar.setEstFavori(cursor.getInt(8));
         return Bar;
     }
 
@@ -149,7 +156,7 @@ public class BarDAO extends DatabaseDAO {
         database.beginTransaction();
         try {
             while ((ligne = buffer.readLine()) != null) {
-                String[] columns = ligne.split(",");
+                String[] columns = ligne.split(";");
                 if (columns.length != BarDAO.allColumnBar.length) {
                     Log.d("CSVParser", "Skipping Bad CSV Row");
                     continue;

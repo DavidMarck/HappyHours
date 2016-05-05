@@ -1,7 +1,5 @@
 package com.example.david.happyhours;
 
-import java.util.Date;
-
 /**
  * Created by Valentin on 30/04/2016.
  */
@@ -14,10 +12,10 @@ public class Bar {
     private long id;
     private String nom;
     private String adresse;
-    private Date horaire_ouv;
-    private Date horaire_ferm;
-    private Date horaire_hh_deb;
-    private Date horaire_hh_fin;
+    private String horaire_ouv;
+    private String horaire_ferm;
+    private String horaire_hh_deb;
+    private String horaire_hh_fin;
     private String image;
     private int estFavori;
 
@@ -27,7 +25,7 @@ public class Bar {
         // default constructor
     }
 
-    public Bar(long id, String nom, String adresse, Date horaire_ouv, Date horaire_ferm, Date horaire_hh_deb, Date horaire_hh_fin, String image, int estFavori) {
+    public Bar(long id, String nom, String adresse, String horaire_ouv, String horaire_ferm, String horaire_hh_deb, String horaire_hh_fin, String image, int estFavori) {
         super();
         this.id = id;
         this.nom = nom;
@@ -67,35 +65,35 @@ public class Bar {
         this.adresse = adresse;
     }
 
-    public Date getHoraire_ouv() {
+    public String getHoraire_ouv() {
         return horaire_ouv;
     }
 
-    public void setHoraire_ouv(Date horaire_ouv) {
+    public void setHoraire_ouv(String horaire_ouv) {
         this.horaire_ouv = horaire_ouv;
     }
 
-    public Date getHoraire_ferm() {
+    public String getHoraire_ferm() {
         return horaire_ferm;
     }
 
-    public void setHoraire_ferm(Date horaire_ferm) {
+    public void setHoraire_ferm(String horaire_ferm) {
         this.horaire_ferm = horaire_ferm;
     }
 
-    public Date getHoraire_hh_deb() {
+    public String getHoraire_hh_deb() {
         return horaire_hh_deb;
     }
 
-    public void setHoraire_hh_deb(Date horaire_hh_deb) {
+    public void setHoraire_hh_deb(String horaire_hh_deb) {
         this.horaire_hh_deb = horaire_hh_deb;
     }
 
-    public Date getHoraire_hh_fin() {
+    public String getHoraire_hh_fin() {
         return horaire_hh_fin;
     }
 
-    public void setHoraire_hh_fin(Date horaire_hh_fin) {
+    public void setHoraire_hh_fin(String horaire_hh_fin) {
         this.horaire_hh_fin = horaire_hh_fin;
     }
 

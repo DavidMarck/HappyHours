@@ -3,6 +3,7 @@ package com.example.david.happyhours;
 import android.content.res.Configuration;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,8 +13,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.List;
 
 public class accueil extends AppCompatActivity {
+
+    private TextView tvTest;
 
     private Toolbar toolbar;
     private ListView listViewDrawer;
@@ -24,7 +30,8 @@ public class accueil extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
 
-    private DatabaseDAO barDAO, typeBiereDAO, biereDAO, carteDAO;
+    private BarDAO barDAO;
+    private DatabaseDAO typeBiereDAO, biereDAO, carteDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,10 +100,15 @@ public class accueil extends AppCompatActivity {
 
         // Création et ouverture de la base de données (instanciation des différents DAO)
         barDAO = new BarDAO(this);
+        barDAO.open();
         barDAO.bulkInsert(this);
         typeBiereDAO = new TypeBiereDAO(this);
         biereDAO = new BiereDAO(this);
         carteDAO = new CarteDAO(this);
+
+        tvTest = (TextView) findViewById(R.id.textViewTest);
+        tvTest.setText(barDAO.getAllBar().toString());
+
 
         // Instanciation de la Toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
