@@ -44,4 +44,9 @@ public class CarteDAO extends DatabaseDAO {
     public CarteDAO (Context context) {
         super(context);
     }
+
+    @Override
+    public void bulkInsert(Context context) {
+
+    }
 }

@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 /**
  * Created by David on 02/05/2016.
  */
-public class DatabaseDAO {
+public abstract class DatabaseDAO {
 
     // Le nom du fichier qui représente ma base
     protected static final String DATABASE_NAME = "happy_hours.db";
@@ -17,18 +17,21 @@ public class DatabaseDAO {
 
     // Champs de la base de données
     protected SQLiteDatabase database = null;
-    protected DatabaseHandler dbHandler = null;
+    protected DatabaseHelper dbHelper = null;
+
+    // Méthodes abstraites
+    abstract public void bulkInsert(Context context);
 
     public DatabaseDAO() {
         // default constructor
     }
 
     public DatabaseDAO(Context context) {
-        this.dbHandler = new DatabaseHandler(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.dbHelper = new DatabaseHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     public SQLiteDatabase open() throws SQLException {
-        database = dbHandler.getWritableDatabase();
+        database = dbHelper.getWritableDatabase();
         return database;
     }
 

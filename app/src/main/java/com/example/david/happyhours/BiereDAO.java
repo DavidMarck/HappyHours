@@ -39,4 +39,9 @@ public class BiereDAO extends DatabaseDAO {
     public BiereDAO (Context context) {
         super(context);
     }
+
+    @Override
+    public void bulkInsert(Context context) {
+
+    }
 }

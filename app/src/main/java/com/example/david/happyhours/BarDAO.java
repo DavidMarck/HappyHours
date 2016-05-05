@@ -2,10 +2,17 @@ package com.example.david.happyhours;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,6 +20,9 @@ import java.util.List;
  */
 
 public class BarDAO extends DatabaseDAO {
+
+    // nom du fichier .csv contenant les données à entrer dans la table bar
+    public static final String CSV_BAR = "donnees_bar.csv";
 
     // TABLE BAR - colonnes et requêtes de création/suppresion
 
@@ -43,7 +53,7 @@ public class BarDAO extends DatabaseDAO {
 
     public static final String DROP_TABLE_BAR = "DROP TABLE IF EXISTS " + TABLE_BAR;
 
-    private String[] allColumnBar = {
+    public static final String[] allColumnBar = {
             COLUMN_BAR_ID, COLUMN_BAR_NOM, COLUMN_BAR_ADR, COLUMN_BAR_HOR_OUV,
             COLUMN_BAR_HOR_FERM, COLUMN_BAR_HH_DEB, COLUMN_BAR_HH_FIN,
             COLUMN_BAR_IMG, COLUMN_BAR_FAV
@@ -122,5 +132,43 @@ public class BarDAO extends DatabaseDAO {
         Bar.setId(cursor.getLong(0));
         Bar.setNom(cursor.getString(1));
         return Bar;
+    }
+
+    public void bulkInsert(Context context) {
+        AssetManager assetManager = context.getAssets();
+        InputStream inputStream = null;
+        try {
+            inputStream = assetManager.open(BarDAO.CSV_BAR);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream));
+        String ligne = "";
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+        database.beginTransaction();
+        try {
+            while ((ligne = buffer.readLine()) != null) {
+                String[] columns = ligne.split(",");
+                if (columns.length != BarDAO.allColumnBar.length) {
+                    Log.d("CSVParser", "Skipping Bad CSV Row");
+                    continue;
+                }
+                Bar bar = new Bar();
+                bar.setNom(columns[0].trim());
+                bar.setAdresse(columns[1].trim());
+                bar.setHoraire_ouv(columns[2].trim());
+                bar.setHoraire_ferm(columns[3].trim());
+                bar.setHoraire_hh_deb(columns[4].trim());
+                bar.setHoraire_hh_fin(columns[5].trim());
+                bar.setImage(columns[6].trim());
+                bar.setEstFavori(Integer.parseInt(columns[7].trim()));
+                insertBar(bar);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        database.setTransactionSuccessful();
+        database.endTransaction();
     }
 }

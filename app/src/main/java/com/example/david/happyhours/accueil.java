@@ -24,7 +24,7 @@ public class accueil extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
 
-    private DatabaseDAO databaseDAO;
+    private DatabaseDAO barDAO, typeBiereDAO, biereDAO, carteDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,14 +86,17 @@ public class accueil extends AppCompatActivity {
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
-    /*
-    * Méthode d'initialisation des composants graphiques de l'interface de l'activité
+    /**
+    * Initialisation des composants graphiques de l'interface de l'activité
     * */
     public void initialisations() {
 
-        // Création et ouverture de la base de données
-        databaseDAO = new DatabaseDAO(this);
-        databaseDAO.open();
+        // Création et ouverture de la base de données (instanciation des différents DAO)
+        barDAO = new BarDAO(this);
+        barDAO.bulkInsert(this);
+        typeBiereDAO = new TypeBiereDAO(this);
+        biereDAO = new BiereDAO(this);
+        carteDAO = new CarteDAO(this);
 
         // Instanciation de la Toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);

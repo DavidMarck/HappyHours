@@ -1,19 +1,27 @@
 package com.example.david.happyhours;
 
+import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 /**
  * Created by Valentin on 30/04/2016.
  */
-public class DatabaseHandler extends SQLiteOpenHelper {
+public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "happy_hours.db";
     private static final int DATABASE_VERSION = 1;
 
-    public DatabaseHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
@@ -29,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.w(DatabaseHandler.class.getName(),
+        Log.w(DatabaseHelper.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
         db.execSQL(BarDAO.DROP_TABLE_BAR);
@@ -38,5 +46,4 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CarteDAO.DROP_TABLE_CARTE);
         onCreate(db);
     }
-
 }
