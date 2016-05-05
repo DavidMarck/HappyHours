@@ -145,7 +145,7 @@ public class BarDAO extends DatabaseDAO {
         AssetManager assetManager = context.getAssets();
         InputStream inputStream = null;
         try {
-            inputStream = assetManager.open(BarDAO.CSV_BAR);
+            inputStream = assetManager.open(CSV_BAR);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -157,7 +157,7 @@ public class BarDAO extends DatabaseDAO {
         try {
             while ((ligne = buffer.readLine()) != null) {
                 String[] columns = ligne.split(";");
-                if (columns.length != BarDAO.allColumnBar.length) {
+                if (columns.length != BarDAO.allColumnBar.length-1) {
                     Log.d("CSVParser", "Skipping Bad CSV Row");
                     continue;
                 }

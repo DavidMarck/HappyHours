@@ -1,5 +1,6 @@
 package com.example.david.happyhours;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -30,8 +31,7 @@ public class accueil extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
 
-    private BarDAO barDAO;
-    private DatabaseDAO typeBiereDAO, biereDAO, carteDAO;
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,16 +98,12 @@ public class accueil extends AppCompatActivity {
     * */
     public void initialisations() {
 
-        // Création et ouverture de la base de données (instanciation des différents DAO)
-        barDAO = new BarDAO(this);
-        barDAO.open();
-        barDAO.bulkInsert(this);
-        typeBiereDAO = new TypeBiereDAO(this);
-        biereDAO = new BiereDAO(this);
-        carteDAO = new CarteDAO(this);
+        // Création et ouverture de la base de données
+        dbHelper = new DatabaseHelper(getApplicationContext(),DatabaseHelper.DATABASE_NAME,null,DatabaseHelper.DATABASE_VERSION);
+        dbHelper.open();
 
         tvTest = (TextView) findViewById(R.id.textViewTest);
-        tvTest.setText(barDAO.getAllBar().toString());
+        tvTest.setText(dbHelper.getAllBar().toString());
 
 
         // Instanciation de la Toolbar
