@@ -20,6 +20,8 @@ import java.util.List;
 
 public class accueil extends AppCompatActivity {
 
+    private static Context context;
+
     private TextView tvTest;
 
     private Toolbar toolbar;
@@ -31,7 +33,8 @@ public class accueil extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
 
-    private DatabaseHelper dbHelper;
+    private DatabaseDAO dbDAO;
+    private BarDAO barDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,12 +101,16 @@ public class accueil extends AppCompatActivity {
     * */
     public void initialisations() {
 
-        // Création et ouverture de la base de données
-        dbHelper = new DatabaseHelper(getApplicationContext(),DatabaseHelper.DATABASE_NAME,null,DatabaseHelper.DATABASE_VERSION);
-        dbHelper.open();
+        context = this.getApplicationContext();
+
+        // Création et ouverture de la base de données par le DAO
+        dbDAO = new DatabaseDAO(context);
+        dbDAO.open();
+
+        barDAO = new BarDAO(context);
 
         tvTest = (TextView) findViewById(R.id.textViewTest);
-        tvTest.setText(dbHelper.getAllBar().toString());
+        tvTest.setText(barDAO.getAllBar().toString());
 
 
         // Instanciation de la Toolbar

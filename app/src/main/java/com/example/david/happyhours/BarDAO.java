@@ -140,42 +140,4 @@ public class BarDAO extends DatabaseDAO {
         Bar.setEstFavori(cursor.getInt(8));
         return Bar;
     }
-
-    public void bulkInsert(Context context) {
-        AssetManager assetManager = context.getAssets();
-        InputStream inputStream = null;
-        try {
-            inputStream = assetManager.open(CSV_BAR);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream));
-        String ligne = "";
-        SQLiteDatabase database = dbHelper.getReadableDatabase();
-        database.beginTransaction();
-        try {
-            while ((ligne = buffer.readLine()) != null) {
-                String[] columns = ligne.split(";");
-                if (columns.length != BarDAO.allColumnBar.length-1) {
-                    Log.d("CSVParser", "Skipping Bad CSV Row");
-                    continue;
-                }
-                Bar bar = new Bar();
-                bar.setNom(columns[0].trim());
-                bar.setAdresse(columns[1].trim());
-                bar.setHoraire_ouv(columns[2].trim());
-                bar.setHoraire_ferm(columns[3].trim());
-                bar.setHoraire_hh_deb(columns[4].trim());
-                bar.setHoraire_hh_fin(columns[5].trim());
-                bar.setImage(columns[6].trim());
-                bar.setEstFavori(Integer.parseInt(columns[7].trim()));
-                insertBar(bar);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        database.setTransactionSuccessful();
-        database.endTransaction();
-    }
 }
