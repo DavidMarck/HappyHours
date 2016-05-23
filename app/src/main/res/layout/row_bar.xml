@@ -1,6 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    >
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/bar_nom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:layout_marginLeft="10dp"
+        android:textStyle="bold"
+        tools:text="Nom du bar"
+        />
+
+    <TextView
+        android:id="@+id/bar_hh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:layout_marginLeft="10dp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/bar_nom"
+        tools:text="Happy Hours"
+        />
+
+    <TextView
+        android:id="@+id/bar_adresse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:layout_alignLeft="@+id/bar_nom"
+        android:layout_below="@+id/bar_nom"
+        tools:text="Adresse du bar"
+        />
+
+    <TextView
+        android:id="@+id/bar_horaires"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:layout_alignLeft="@+id/bar_adresse"
+        android:layout_below="@+id/bar_adresse"
+        tools:text="Adresse du bar"
+        />
+
+    <ImageButton
+        android:id="@+id/btn_favori"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        />
+
+    <ImageButton
+        android:id="@+id/btn_barathon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/btn_favori"
+        />
+
+    <ImageButton
+        android:id="@+id/btn_geoloc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/btn_barathon"
+        />
+
+</RelativeLayout>

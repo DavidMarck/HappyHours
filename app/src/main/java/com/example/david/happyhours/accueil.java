@@ -22,14 +22,11 @@ public class accueil extends AppCompatActivity {
 
     private static Context context;
 
-    private TextView tvTest;
-
     private Toolbar toolbar;
-    private ListView listViewDrawer;
+    private ListView listViewDrawer,listViewBars;
     private final String[] drawerItems = new String[]{
             "Favoris","Barathon","Paramètres"
     };
-
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
 
@@ -109,10 +106,6 @@ public class accueil extends AppCompatActivity {
 
         barDAO = new BarDAO(context);
 
-        tvTest = (TextView) findViewById(R.id.textViewTest);
-        tvTest.setText(barDAO.getAllBar().toString());
-
-
         // Instanciation de la Toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         // On définit notre Toolbar en tant qu'ActionBar
@@ -132,5 +125,11 @@ public class accueil extends AppCompatActivity {
         ArrayAdapter<String> adapterDrawerItems = new ArrayAdapter<String>(accueil.this,
         android.R.layout.simple_list_item_1, drawerItems);
         listViewDrawer.setAdapter(adapterDrawerItems);
+
+        // Instanciation de la ListView listant les bars
+        listViewBars = (ListView) findViewById(R.id.listViewBars);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(accueil.this,
+                android.R.layout.simple_list_item_1, drawerItems);
+        listViewBars.setAdapter(adapter);
     }
 }
