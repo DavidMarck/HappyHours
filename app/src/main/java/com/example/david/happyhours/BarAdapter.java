@@ -27,9 +27,21 @@ public class BarAdapter extends ArrayAdapter<BarRow> {
         super(context,0,bars);
     }
 
+    /**
+     * Instancie les vues (items de listViewBars) ou les ré-utilise
+     *
+     * @param position
+     * @param convertView vue recyclée
+     * @param parent
+     * @return vue recyclée
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        // Android fournit un convertView null lorsqu'il nous demande de la créer
+        // dans le cas contraire, cela veux dire qu'il nous fournit une vue recyclée
         if(convertView == null){
+            // On récupère row_bar via un LayoutInflater,
+            // qui va charger un layout xml dans un objet View
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_bar,parent, false);
         }
 

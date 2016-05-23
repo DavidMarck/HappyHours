@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class accueil extends AppCompatActivity {
@@ -120,16 +121,33 @@ public class accueil extends AppCompatActivity {
         this.drawerToggle = new ActionBarDrawerToggle(this,this.drawerLayout,0,0);
         this.drawerLayout.addDrawerListener(this.drawerToggle);
 
-        // Instanciation de la ListView contenue dans le Drawer
+        // Instanciation et remplissage de la ListView contenue dans le Drawer
         listViewDrawer = (ListView) findViewById(R.id.listViewDrawer);
         ArrayAdapter<String> adapterDrawerItems = new ArrayAdapter<String>(accueil.this,
         android.R.layout.simple_list_item_1, drawerItems);
         listViewDrawer.setAdapter(adapterDrawerItems);
 
-        // Instanciation de la ListView listant les bars
+        // Instanciation et remplissage de la ListView listant les bars
         listViewBars = (ListView) findViewById(R.id.listViewBars);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(accueil.this,
-                android.R.layout.simple_list_item_1, drawerItems);
-        listViewBars.setAdapter(adapter);
+        List<BarRow> barsRows = genererBars();
+        BarAdapter adapterBarsRows = new BarAdapter(accueil.this,barsRows);
+        listViewBars.setAdapter(adapterBarsRows);
+    }
+
+    /**
+     * Génère les informations des bars à afficher dans la liste de l'accueil
+     *
+     * @return ArrayList de BarRow
+     * (informations à afficher dans la ListView de l'activité accueil)
+     */
+    private List<BarRow> genererBars() {
+        List<BarRow> barsRows = new ArrayList<BarRow>();
+        List<Bar> barsBDD = barDAO.getAllBar();
+        for(Bar unBar : barsBDD) {
+            barsRows.add(new BarRow(unBar.getNom(),unBar.getHoraire_hh_deb(),
+                    unBar.getHoraire_hh_fin(),unBar.getAdresse(),unBar.getHoraire_ouv(),
+                    unBar.getHoraire_ferm()));
+        }
+        return barsRows;
     }
 }
