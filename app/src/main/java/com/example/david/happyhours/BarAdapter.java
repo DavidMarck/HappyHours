@@ -1,7 +1,9 @@
 package com.example.david.happyhours;
 
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -58,15 +61,65 @@ public class BarAdapter extends ArrayAdapter<BarRow> {
             convertView.setTag(viewHolder);
         }
 
-        //getItem(position) va récupérer l'item [position] de la List<Tweet> tweets
+        // getItem(position) récupère l'item [position] de la List<BarRow> barsRows
         BarRow barRow = getItem(position);
 
-        //il ne reste plus qu'à remplir notre vue
+        // Remplissage de la vue
         viewHolder.bar_nom.setText(barRow.getNom());
         viewHolder.bar_hh.setText(barRow.getHappy_hours());
         viewHolder.bar_adresse.setText(barRow.getAdresse());
         viewHolder.bar_horaires.setText(barRow.getHoraires());
         viewHolder.bar_adresse.setText(barRow.getAdresse());
+        viewHolder.btn_favori.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageButton imgBtn = (ImageButton) v;
+                if(imgBtn.getTag().equals("R.drawable.ic_favorite_disabled")) {
+                    imgBtn.setImageResource(R.drawable.ic_favorite_enabled);
+                    imgBtn.setTag("R.drawable.ic_favorite_enabled");
+                    final Toast toast = Toast.makeText(getContext(),
+                            "Bar ajouté aux favoris", Toast.LENGTH_SHORT);
+                    toast.show();
+                    // N'afficher le Toast que 500ms et l'annuler
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            toast.cancel();
+                        }
+                    }, 500);
+
+                } else {
+                    imgBtn.setImageResource(R.drawable.ic_favorite_disabled);
+                    imgBtn.setTag("R.drawable.ic_favorite_disabled");
+                    final Toast toast = Toast.makeText(getContext(),
+                            "Bar retiré des favoris", Toast.LENGTH_SHORT);
+                    toast.show();
+                    // N'afficher le Toast que 500ms et l'annuler
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            toast.cancel();
+                        }
+                    }, 500);
+                }
+            }
+        });
+        viewHolder.btn_barathon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),
+                        "btn_barathon is clicked!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        viewHolder.btn_geoloc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),
+                        "btn_geoloc is clicked!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return convertView;
     }

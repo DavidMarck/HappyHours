@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,8 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +29,7 @@ public class accueil extends AppCompatActivity {
     };
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
+    private ImageButton btn_favori,btn_barathon,btn_geoloc;
 
     private DatabaseDAO dbDAO;
     private BarDAO barDAO;
@@ -95,7 +95,9 @@ public class accueil extends AppCompatActivity {
     }
 
     /**
-    * Initialisation des composants graphiques de l'interface de l'activité
+    * Initialisations
+     * --> Instanciations composants graphiques
+     * --> Ouverture BDD (DAO)
     * */
     public void initialisations() {
 
@@ -129,18 +131,46 @@ public class accueil extends AppCompatActivity {
 
         // Instanciation et remplissage de la ListView listant les bars
         listViewBars = (ListView) findViewById(R.id.listViewBars);
-        List<BarRow> barsRows = genererBars();
+        List<BarRow> barsRows = genererItemsBars();
         BarAdapter adapterBarsRows = new BarAdapter(accueil.this,barsRows);
         listViewBars.setAdapter(adapterBarsRows);
+
+        // Instanciation - OnClickListener des ImageButtons
+        btn_favori = (ImageButton) findViewById(R.id.btn_favori);
+        /*btn_favori.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Toast.makeText(accueil.this,
+                        "btn_favori is clicked!", Toast.LENGTH_SHORT).show();
+            }
+        });*/
+
+        btn_barathon = (ImageButton) findViewById(R.id.btn_barathon);
+        /*btn_barathon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Toast.makeText(accueil.this,
+                        "btn_barathon is clicked!", Toast.LENGTH_SHORT).show();
+            }
+        });*/
+
+        btn_geoloc = (ImageButton) findViewById(R.id.btn_geoloc);
+        /*btn_geoloc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Toast.makeText(accueil.this,
+                        "btn_geoloc is clicked!", Toast.LENGTH_SHORT).show();
+            }
+        });*/
     }
 
     /**
-     * Génère les informations des bars à afficher dans la liste de l'accueil
+     * Génère les items dans la liste de l'accueil
      *
-     * @return ArrayList de BarRow
-     * (informations à afficher dans la ListView de l'activité accueil)
+     * @return ArrayList des items de type BarRow
+     * (informations par bars à afficher dans la ListView de l'activité accueil)
      */
-    private List<BarRow> genererBars() {
+    private List<BarRow> genererItemsBars() {
         List<BarRow> barsRows = new ArrayList<BarRow>();
         List<Bar> barsBDD = barDAO.getAllBar();
         for(Bar unBar : barsBDD) {
