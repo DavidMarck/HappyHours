@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/bar_nom"
+        android:src="@drawable/ic_favorite_disabled"
         />
 
     <ImageButton
@@ -60,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@id/btn_favori"
-        android:layout_below="@id/bar_nom"
+        android:src="@drawable/ic_barathon"
         />
 
     <ImageButton
@@ -68,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@id/btn_barathon"
-        android:layout_below="@id/bar_nom"
+        android:src="@drawable/ic_geolocation"
         />
 
 </RelativeLayout>
