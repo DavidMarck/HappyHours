@@ -77,47 +77,24 @@ public class BarAdapter extends ArrayAdapter<BarRow> {
                 if(imgBtn.getTag().equals("R.drawable.ic_favorite_disabled")) {
                     imgBtn.setImageResource(R.drawable.ic_favorite_enabled);
                     imgBtn.setTag("R.drawable.ic_favorite_enabled");
-                    final Toast toast = Toast.makeText(getContext(),
-                            "Bar ajouté aux favoris", Toast.LENGTH_SHORT);
-                    toast.show();
-                    // N'afficher le Toast que 500ms et l'annuler
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            toast.cancel();
-                        }
-                    }, 500);
-
+                    genererToast("Bar ajouté aux favoris",500);
                 } else {
                     imgBtn.setImageResource(R.drawable.ic_favorite_disabled);
                     imgBtn.setTag("R.drawable.ic_favorite_disabled");
-                    final Toast toast = Toast.makeText(getContext(),
-                            "Bar retiré des favoris", Toast.LENGTH_SHORT);
-                    toast.show();
-                    // N'afficher le Toast que 500ms et l'annuler
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            toast.cancel();
-                        }
-                    }, 500);
+                    genererToast("Bar retiré des favoris",500);
                 }
             }
         });
         viewHolder.btn_barathon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),
-                        "btn_barathon is clicked!", Toast.LENGTH_SHORT).show();
+                genererToast("btn_barathon is clicked!",500);
             }
         });
         viewHolder.btn_geoloc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),
-                        "btn_geoloc is clicked!", Toast.LENGTH_SHORT).show();
+                genererToast("btn_geoloc is clicked!",500);
             }
         });
 
@@ -127,5 +104,25 @@ public class BarAdapter extends ArrayAdapter<BarRow> {
     private class BarViewHolder {
         public TextView bar_nom,bar_hh,bar_adresse,bar_horaires;
         public ImageButton btn_favori,btn_barathon,btn_geoloc;
+    }
+
+    /**
+     * Génère un Toast, l'affiche et l'annule après une duree
+     *
+     * @param text
+     * @param duree
+     */
+    public void genererToast(String text, int duree) {
+        final Toast toast = Toast.makeText(getContext(),
+                text, Toast.LENGTH_SHORT);
+        toast.show();
+        // N'afficher le Toast que 500ms et l'annuler
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                toast.cancel();
+            }
+        }, duree);
     }
 }

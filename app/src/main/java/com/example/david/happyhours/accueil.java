@@ -135,33 +135,12 @@ public class accueil extends AppCompatActivity {
         BarAdapter adapterBarsRows = new BarAdapter(accueil.this,barsRows);
         listViewBars.setAdapter(adapterBarsRows);
 
-        // Instanciation - OnClickListener des ImageButtons
+        // Instanciation des ImageButtons
         btn_favori = (ImageButton) findViewById(R.id.btn_favori);
-        /*btn_favori.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                Toast.makeText(accueil.this,
-                        "btn_favori is clicked!", Toast.LENGTH_SHORT).show();
-            }
-        });*/
 
         btn_barathon = (ImageButton) findViewById(R.id.btn_barathon);
-        /*btn_barathon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                Toast.makeText(accueil.this,
-                        "btn_barathon is clicked!", Toast.LENGTH_SHORT).show();
-            }
-        });*/
 
         btn_geoloc = (ImageButton) findViewById(R.id.btn_geoloc);
-        /*btn_geoloc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                Toast.makeText(accueil.this,
-                        "btn_geoloc is clicked!", Toast.LENGTH_SHORT).show();
-            }
-        });*/
     }
 
     /**
