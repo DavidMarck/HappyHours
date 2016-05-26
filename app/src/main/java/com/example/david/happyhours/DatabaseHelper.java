@@ -44,6 +44,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.execSQL(TypeBiereDAO.CREATE_TABLE_TYPE_BIERE);
         database.execSQL(BiereDAO.CREATE_TABLE_BIERE);
         database.execSQL(CarteDAO.CREATE_TABLE_CARTE);
+        database.execSQL(JourDAO.CREATE_TABLE_JOUR);
+        database.execSQL(OuvertureDAO.CREATE_TABLE_OUVERTURE);
     }
 
     @Override
@@ -51,15 +53,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.w(DatabaseHelper.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
-        db.execSQL(BarDAO.DROP_TABLE_BAR);
-        db.execSQL(TypeBiereDAO.DROP_TABLE_TYPE_BIERE);
-        db.execSQL(BiereDAO.DROP_TABLE_BIERE);
         db.execSQL(CarteDAO.DROP_TABLE_CARTE);
+        db.execSQL(OuvertureDAO.DROP_TABLE_OUVERTURE);
+        db.execSQL(BarDAO.DROP_TABLE_BAR);
+        db.execSQL(BiereDAO.DROP_TABLE_BIERE);
+        db.execSQL(TypeBiereDAO.DROP_TABLE_TYPE_BIERE);
+        db.execSQL(JourDAO.DROP_TABLE_JOUR);
         onCreate(db);
     }
 
 
-
+    /**
+     * Effectue un bulk insert des données du fichier donnees_bar.csv dans la table bar
+     * @param context
+     */
     public void bulkInsertBar(Context context) {
         AssetManager assetManager = context.getAssets();
         InputStream inputStream = null;
