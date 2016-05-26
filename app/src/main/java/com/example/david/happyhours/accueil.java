@@ -16,6 +16,8 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class accueil extends AppCompatActivity {
@@ -33,6 +35,8 @@ public class accueil extends AppCompatActivity {
 
     private DatabaseDAO dbDAO;
     private BarDAO barDAO;
+    private OuvertureDAO ouvertureDAO;
+    private JourDAO jourDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +112,8 @@ public class accueil extends AppCompatActivity {
         dbDAO.open();
 
         barDAO = new BarDAO(context);
+        ouvertureDAO = new OuvertureDAO(context);
+        jourDAO = new JourDAO(context);
 
         // Instanciation de la Toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -152,10 +158,25 @@ public class accueil extends AppCompatActivity {
     private List<BarRow> genererItemsBars() {
         List<BarRow> barsRows = new ArrayList<BarRow>();
         List<Bar> barsBDD = barDAO.getAllBar();
+        List<Ouverture> ouverturesBDD;
+        List<Jour> joursBDD = jourDAO.getAllJour();
+
+        String horaire_ouv = "";
+        String horaire_ferm = "";
+        String horaire_hh_deb = "";
+        String horaire_hh_fin = "";
+
+        Calendar calendar = Calendar.getInstance();
+
         for(Bar unBar : barsBDD) {
-            barsRows.add(new BarRow(unBar.getNom(),unBar.getHoraire_hh_deb(),
-                    unBar.getHoraire_hh_fin(),unBar.getAdresse(),unBar.getHoraire_ouv(),
-                    unBar.getHoraire_ferm()));
+            ouverturesBDD = ouvertureDAO.getAllOuverture(unBar.getId(),calendar.get(Calendar.DAY_OF_WEEK));
+            horaire_ouv = ouverturesBDD.get(0).getHoraire_ouv();
+            horaire_ferm = ouverturesBDD.get(0).getHoraire_ferm();
+            horaire_hh_deb = ouverturesBDD.get(0).getHoraire_hh_deb();
+            horaire_hh_fin = ouverturesBDD.get(0).getHoraire_hh_fin();
+            barsRows.add(new BarRow(unBar.getNom(),horaire_hh_deb,
+                    horaire_hh_fin,unBar.getAdresse(),horaire_ouv,
+                    horaire_ferm));
         }
         return barsRows;
     }

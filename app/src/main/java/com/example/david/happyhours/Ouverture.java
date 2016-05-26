@@ -7,8 +7,8 @@ public class Ouverture {
 
     // Attributs
 
+    private long id,id_bar, id_jour;
     private String horaire_ouv, horaire_ferm, horaire_hh_deb, horaire_hh_fin;
-    private long id_bar, id_jour;
 
     /**
      * Constructeur par défaut
@@ -28,16 +28,25 @@ public class Ouverture {
      * @param id_bar
      * @param id_jour
      */
-    public Ouverture(String horaire_ouv, String horaire_ferm, String horaire_hh_deb, String horaire_hh_fin, long id_bar, long id_jour) {
+    public Ouverture(long id, long id_bar, long id_jour, String horaire_ouv, String horaire_ferm, String horaire_hh_deb, String horaire_hh_fin) {
+        this.id = id;
+        this.id_bar = id_bar;
+        this.id_jour = id_jour;
         this.horaire_ouv = horaire_ouv;
         this.horaire_ferm = horaire_ferm;
         this.horaire_hh_deb = horaire_hh_deb;
         this.horaire_hh_fin = horaire_hh_fin;
-        this.id_bar = id_bar;
-        this.id_jour = id_jour;
     }
 
     // Getters & Setters
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getHoraire_ouv() {
         return horaire_ouv;
@@ -90,12 +99,13 @@ public class Ouverture {
     @Override
     public String toString() {
         return "Ouverture{" +
-                "horaire_ouv='" + horaire_ouv + '\'' +
+                "id=" + id +
+                ", id_bar=" + id_bar +
+                ", id_jour=" + id_jour +
+                ", horaire_ouv='" + horaire_ouv + '\'' +
                 ", horaire_ferm='" + horaire_ferm + '\'' +
                 ", horaire_hh_deb='" + horaire_hh_deb + '\'' +
                 ", horaire_hh_fin='" + horaire_hh_fin + '\'' +
-                ", id_bar=" + id_bar +
-                ", id_jour=" + id_jour +
                 '}';
     }
 }

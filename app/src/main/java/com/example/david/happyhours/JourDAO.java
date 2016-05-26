@@ -1,6 +1,10 @@
 package com.example.david.happyhours;
 
 import android.content.Context;
+import android.database.Cursor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by David on 26/05/2016.
@@ -31,5 +35,38 @@ public class JourDAO extends DatabaseDAO {
 
     public JourDAO (Context context) {
         super(context);
+    }
+
+    /**
+     * Obtention de la table Jour sous forme de List
+     *
+     * @return liste des entrées enregistrées dans la table jour
+     */
+    public List<Jour> getAllJour() {
+        List<Jour> tousLesJours = new ArrayList<Jour>();
+
+        Cursor cursor = database.query(TABLE_JOUR, allColumnJour, null, null, null, null, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Jour jour = cursorToJour(cursor);
+            tousLesJours.add(jour);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return tousLesJours;
+    }
+
+    /**
+     * Convertit un objet de type Cursor en un objet de type Jour
+     *
+     * @param cursor
+     * @return
+     */
+    private Jour cursorToJour(Cursor cursor) {
+        Jour jour = new Jour();
+        jour.setId(cursor.getLong(0));
+        jour.setLbl(cursor.getString(1));
+        return jour;
     }
 }

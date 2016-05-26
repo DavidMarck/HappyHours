@@ -22,7 +22,7 @@ public class BarRow {
      */
     public BarRow(String nom, String hh_deb, String hh_fin, String adresse, String hor_ouv, String hor_ferm) {
         this.nom = nom;
-        this.happy_hours = hh_deb + " - " + hh_fin;
+        this.happy_hours = hh_deb.equals("null") ? "Pas d'Happy Hours" : hh_deb + " - " + hh_fin;
         this.adresse = adresse;
         this.horaires = hor_ouv + " - " + hor_ferm;
     }

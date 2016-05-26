@@ -180,15 +180,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     continue;
                 }
                 Ouverture ouverture = new Ouverture();
-                ouverture.setId_bar(Integer.parseInt(columns[0].trim()));
-                ouverture.setId_jour(Integer.parseInt(columns[1].trim()));
+                ouverture.setId_bar(Long.parseLong(columns[0].trim()));
+                ouverture.setId_jour(Long.parseLong(columns[1].trim()));
+                ouverture.setHoraire_ouv(columns[2].trim());
+                ouverture.setHoraire_ferm(columns[3].trim());
+                ouverture.setHoraire_hh_deb(columns[4].trim());
+                ouverture.setHoraire_hh_fin(columns[5].trim());
                 ContentValues values = new ContentValues();
                 values.put(OuvertureDAO.COLUMN_OUVERTURE_ID_BAR, ouverture.getId_bar());
                 values.put(OuvertureDAO.COLUMN_OUVERTURE_ID_JOUR, ouverture.getId_jour());
                 values.put(OuvertureDAO.COLUMN_OUVERTURE_HORAIRE_OUV, ouverture.getHoraire_ouv());
                 values.put(OuvertureDAO.COLUMN_OUVERTURE_HORAIRE_FERM, ouverture.getHoraire_ferm());
                 values.put(OuvertureDAO.COLUMN_OUVERTURE_HORAIRE_HH_DEB, ouverture.getHoraire_hh_deb());
-                values.put(OuvertureDAO.COLUMN_OUVERTURE_HORAIRE_HH_FIN, ouverture.getHoraire_hh_deb());
+                values.put(OuvertureDAO.COLUMN_OUVERTURE_HORAIRE_HH_FIN, ouverture.getHoraire_hh_fin());
                 long insertId = database.insert(OuvertureDAO.TABLE_OUVERTURE, null,
                         values);
             }

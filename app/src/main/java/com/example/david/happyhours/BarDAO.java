@@ -107,7 +107,7 @@ public class BarDAO extends DatabaseDAO {
     }
 
     /**
-     * Obtention de la table bar
+     * Obtention de la table bar sous forme de List
      *
      * @return liste des bars enregistrés dans la table bar
      */
@@ -126,18 +126,23 @@ public class BarDAO extends DatabaseDAO {
         return tousLesBar;
     }
 
-    // Cette méthode permet de convertir un cursor en un bar
+    /**
+     * Convertit un objet de type Cursor en un objet de type Bar
+     *
+     * @param cursor
+     * @return
+     */
     private Bar cursorToBar(Cursor cursor) {
-        Bar Bar = new Bar();
-        Bar.setId(cursor.getLong(0));
-        Bar.setNom(cursor.getString(1));
-        Bar.setAdresse(cursor.getString(2));
-        Bar.setHoraire_ouv(cursor.getString(3));
-        Bar.setHoraire_ferm(cursor.getString(4));
-        Bar.setHoraire_hh_deb(cursor.getString(5));
-        Bar.setHoraire_hh_fin(cursor.getString(6));
-        Bar.setImage(cursor.getString(7));
-        Bar.setEstFavori(cursor.getInt(8));
-        return Bar;
+        Bar bar = new Bar();
+        bar.setId(cursor.getLong(0));
+        bar.setNom(cursor.getString(1));
+        bar.setAdresse(cursor.getString(2));
+        bar.setHoraire_ouv(cursor.getString(3));
+        bar.setHoraire_ferm(cursor.getString(4));
+        bar.setHoraire_hh_deb(cursor.getString(5));
+        bar.setHoraire_hh_fin(cursor.getString(6));
+        bar.setImage(cursor.getString(7));
+        bar.setEstFavori(cursor.getInt(8));
+        return bar;
     }
 }
