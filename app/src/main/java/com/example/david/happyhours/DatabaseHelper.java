@@ -45,7 +45,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.execSQL(BiereDAO.CREATE_TABLE_BIERE);
         database.execSQL(CarteDAO.CREATE_TABLE_CARTE);
         database.execSQL(JourDAO.CREATE_TABLE_JOUR);
+        this.bulkInsertJour(context);
         database.execSQL(OuvertureDAO.CREATE_TABLE_OUVERTURE);
+        this.bulkInsertOuverture(context);
     }
 
     @Override
@@ -65,6 +67,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Effectue un bulk insert des données du fichier donnees_bar.csv dans la table bar
+     *
      * @param context
      */
     public void bulkInsertBar(Context context) {
@@ -105,6 +108,88 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 values.put(BarDAO.COLUMN_BAR_IMG, bar.getImage());
                 values.put(BarDAO.COLUMN_BAR_FAV, bar.getEstFavori());
                 long insertId = database.insert(BarDAO.TABLE_BAR, null,
+                        values);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        database.setTransactionSuccessful();
+        database.endTransaction();
+    }
+
+    /**
+     * Effectue un bulk insert des données du fichier donnees_jour.csv dans la table jour
+     *
+     * @param context
+     */
+    public void bulkInsertJour(Context context) {
+        AssetManager assetManager = context.getAssets();
+        InputStream inputStream = null;
+        try {
+            inputStream = assetManager.open(JourDAO.CSV_JOUR);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream));
+        String ligne = "";
+        database.beginTransaction();
+        try {
+            while ((ligne = buffer.readLine()) != null) {
+                String[] columns = ligne.split(";");
+                if (columns.length != JourDAO.allColumnJour.length-1) {
+                    Log.d("CSVParser", "Skipping Bad CSV Row");
+                    continue;
+                }
+                Jour jour = new Jour();
+                jour.setLbl(columns[0].trim());
+                ContentValues values = new ContentValues();
+                values.put(JourDAO.COLUMN_JOUR_LBL, jour.getLbl());
+                long insertId = database.insert(JourDAO.TABLE_JOUR, null,
+                        values);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        database.setTransactionSuccessful();
+        database.endTransaction();
+    }
+
+    /**
+     * Effectue un bulk insert des données du fichier donnees_ouverture.csv dans la table ouverture
+     *
+     * @param context
+     */
+    public void bulkInsertOuverture(Context context) {
+        AssetManager assetManager = context.getAssets();
+        InputStream inputStream = null;
+        try {
+            inputStream = assetManager.open(OuvertureDAO.CSV_OUVERTURE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream));
+        String ligne = "";
+        database.beginTransaction();
+        try {
+            while ((ligne = buffer.readLine()) != null) {
+                String[] columns = ligne.split(";");
+                if (columns.length != OuvertureDAO.allColumnOuverture.length-1) {
+                    Log.d("CSVParser", "Skipping Bad CSV Row");
+                    continue;
+                }
+                Ouverture ouverture = new Ouverture();
+                ouverture.setId_bar(Integer.parseInt(columns[0].trim()));
+                ouverture.setId_jour(Integer.parseInt(columns[1].trim()));
+                ContentValues values = new ContentValues();
+                values.put(OuvertureDAO.COLUMN_OUVERTURE_ID_BAR, ouverture.getId_bar());
+                values.put(OuvertureDAO.COLUMN_OUVERTURE_ID_JOUR, ouverture.getId_jour());
+                values.put(OuvertureDAO.COLUMN_OUVERTURE_HORAIRE_OUV, ouverture.getHoraire_ouv());
+                values.put(OuvertureDAO.COLUMN_OUVERTURE_HORAIRE_FERM, ouverture.getHoraire_ferm());
+                values.put(OuvertureDAO.COLUMN_OUVERTURE_HORAIRE_HH_DEB, ouverture.getHoraire_hh_deb());
+                values.put(OuvertureDAO.COLUMN_OUVERTURE_HORAIRE_HH_FIN, ouverture.getHoraire_hh_deb());
+                long insertId = database.insert(OuvertureDAO.TABLE_OUVERTURE, null,
                         values);
             }
         } catch (IOException e) {

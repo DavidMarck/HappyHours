@@ -11,7 +11,15 @@ public class Jour {
     private String lbl;
 
     /**
-     * Constructeur Jour
+     * Constructeur par défaut
+     *
+     * @see DatabaseHelper > bulkInsertJour()
+     */
+    public Jour() {
+    }
+
+    /**
+     * Constructeur de Jour
      *
      * @param id
      * @param lbl
@@ -31,11 +39,11 @@ public class Jour {
         this.id = id;
     }
 
-    public String getLbl_jour() {
+    public String getLbl() {
         return lbl;
     }
 
-    public void setLbl_jour(String lbl) {
+    public void setLbl(String lbl) {
         this.lbl = lbl;
     }
 

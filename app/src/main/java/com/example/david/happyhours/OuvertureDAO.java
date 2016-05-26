@@ -27,14 +27,14 @@ public class OuvertureDAO extends DatabaseDAO {
             + COLUMN_OUVERTURE_ID_JOUR + " integer not null references " + JourDAO.TABLE_JOUR+ "("+ JourDAO.COLUMN_JOUR_ID +"), "
             + COLUMN_OUVERTURE_HORAIRE_OUV + " text not null, "
             + COLUMN_OUVERTURE_HORAIRE_FERM + " text not null, "
-            + COLUMN_OUVERTURE_HORAIRE_HH_DEB + " text not null, "
-            + COLUMN_OUVERTURE_HORAIRE_HH_FIN + " text not null, "
+            + COLUMN_OUVERTURE_HORAIRE_HH_DEB + " text null, "
+            + COLUMN_OUVERTURE_HORAIRE_HH_FIN + " text null, "
             + "PRIMARY KEY (" + COLUMN_OUVERTURE_ID_BAR + "," + COLUMN_OUVERTURE_ID_JOUR + ")"
             + ");";
 
     public static final String DROP_TABLE_OUVERTURE = "DROP IF EXISTS " + TABLE_OUVERTURE;
 
-    private String[] allColumnOuverture = {
+    public static final String[] allColumnOuverture = {
             COLUMN_OUVERTURE_ID_BAR, COLUMN_OUVERTURE_ID_JOUR, COLUMN_OUVERTURE_HORAIRE_OUV,
             COLUMN_OUVERTURE_HORAIRE_FERM, COLUMN_OUVERTURE_HORAIRE_HH_DEB, COLUMN_OUVERTURE_HORAIRE_HH_FIN
     };

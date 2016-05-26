@@ -11,6 +11,15 @@ public class Ouverture {
     private long id_bar, id_jour;
 
     /**
+     * Constructeur par défaut
+     *
+     * @see DatabaseHelper > bulkInsertOuverture()
+     */
+    public Ouverture() {
+
+    }
+
+    /**
      * Constructeur de Ouverture
      * @param horaire_ouv
      * @param horaire_ferm

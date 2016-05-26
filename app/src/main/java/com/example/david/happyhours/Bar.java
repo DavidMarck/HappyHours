@@ -21,12 +21,27 @@ public class Bar {
 
     // Constructeurs
 
+    /**
+     * Constructeur par défaut
+     *
+     * @see DatabaseHelper > bulkInsertBar()
+     */
     public Bar() {
-        // default constructor
     }
 
+    /**
+     * Constructeur de Bar
+     * @param id
+     * @param nom
+     * @param adresse
+     * @param horaire_ouv
+     * @param horaire_ferm
+     * @param horaire_hh_deb
+     * @param horaire_hh_fin
+     * @param image
+     * @param estFavori
+     */
     public Bar(long id, String nom, String adresse, String horaire_ouv, String horaire_ferm, String horaire_hh_deb, String horaire_hh_fin, String image, int estFavori) {
-        super();
         this.id = id;
         this.nom = nom;
         this.adresse = adresse;

@@ -25,7 +25,7 @@ public class JourDAO extends DatabaseDAO {
 
     public static final String DROP_TABLE_JOUR = "DROP IF EXISTS " + TABLE_JOUR;
 
-    private String[] allColumnJour = {
+    public static final String[] allColumnJour = {
             COLUMN_JOUR_ID, COLUMN_JOUR_LBL
     };
 
