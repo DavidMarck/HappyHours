@@ -80,7 +80,6 @@ public class BarAdapter extends ArrayAdapter<BarRow> {
         Cursor cursor = barDAO.getDatabase().query(barDAO.TABLE_BAR, barDAO.allColumnBar, barDAO.COLUMN_BAR_NOM + " = ? ", new String[] {barRow.getNom()}, null, null, null);
         cursor.moveToFirst();
         Bar bar = barDAO.cursorToBar(cursor);
-        cursor.moveToFirst();
         // On définit l'image du bouton favori en fonction de l'attribut estFavori
         if(bar.getEstFavori() == 1) {
             viewHolder.btn_favori.setImageResource(R.drawable.ic_favorite_enabled);

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class accueil extends AppCompatActivity {
 
@@ -166,10 +167,13 @@ public class accueil extends AppCompatActivity {
         String horaire_hh_deb = "";
         String horaire_hh_fin = "";
 
-        Calendar calendar = Calendar.getInstance();
+        // On récupère les informations relatives à l'horodatage
+        Calendar localCalendar = Calendar.getInstance(TimeZone.getDefault());
+        // On récupère le numéro du jour de la semaine actuel via Calendar, qu'on modifie pour correspondre à la base de données (le jour 1 étant Dimanche dans Calendar et Lundi dans la base)
+        int currentDayOfWeek = localCalendar.get(Calendar.DAY_OF_WEEK) == 1 ? 7 : (localCalendar.get(Calendar.DAY_OF_WEEK))-1;
 
         for(Bar unBar : barsBDD) {
-            ouverturesBDD = ouvertureDAO.getAllOuverture(unBar.getId(),calendar.get(Calendar.DAY_OF_WEEK));
+            ouverturesBDD = ouvertureDAO.getAllOuverture(unBar.getId(),currentDayOfWeek);
             horaire_ouv = ouverturesBDD.get(0).getHoraire_ouv();
             horaire_ferm = ouverturesBDD.get(0).getHoraire_ferm();
             horaire_hh_deb = ouverturesBDD.get(0).getHoraire_hh_deb();
