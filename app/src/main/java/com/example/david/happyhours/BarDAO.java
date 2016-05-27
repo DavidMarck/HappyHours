@@ -96,7 +96,7 @@ public class BarDAO extends DatabaseDAO {
     public List<Bar> getAllBar() {
         List<Bar> tousLesBar = new ArrayList<Bar>();
 
-        Cursor cursor = database.query(TABLE_BAR, allColumnBar, null, null, null, null, null);
+        Cursor cursor = database.query(TABLE_BAR, allColumnBar, null, null, null, null, COLUMN_BAR_NOM);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
