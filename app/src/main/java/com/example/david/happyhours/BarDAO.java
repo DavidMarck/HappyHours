@@ -106,6 +106,10 @@ public class BarDAO extends DatabaseDAO {
         database.delete(TABLE_BAR, COLUMN_BAR_ID + " = " + id, null);
     }
 
+    public void updateBar(ContentValues values, String whereClause, String[] whereArgs) {
+        database.update(TABLE_BAR, values, whereClause, whereArgs);
+    }
+
     /**
      * Obtention de la table bar sous forme de List
      *
@@ -132,7 +136,7 @@ public class BarDAO extends DatabaseDAO {
      * @param cursor
      * @return
      */
-    private Bar cursorToBar(Cursor cursor) {
+    public Bar cursorToBar(Cursor cursor) {
         Bar bar = new Bar();
         bar.setId(cursor.getLong(0));
         bar.setNom(cursor.getString(1));

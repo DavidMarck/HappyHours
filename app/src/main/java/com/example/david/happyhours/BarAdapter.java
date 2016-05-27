@@ -1,6 +1,8 @@
 package com.example.david.happyhours;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
@@ -62,7 +64,10 @@ public class BarAdapter extends ArrayAdapter<BarRow> {
         }
 
         // getItem(position) récupère l'item [position] de la List<BarRow> barsRows
-        BarRow barRow = getItem(position);
+        // déclarations final à fin d'utilisation dans OnClickListener
+        final BarRow barRow = getItem(position);
+        final BarDAO barDAO = new BarDAO(getContext());
+        final ImageButton imgBtn = viewHolder.btn_favori;
 
         // Remplissage de la vue
         viewHolder.bar_nom.setText(barRow.getNom());
@@ -70,17 +75,37 @@ public class BarAdapter extends ArrayAdapter<BarRow> {
         viewHolder.bar_adresse.setText(barRow.getAdresse());
         viewHolder.bar_horaires.setText(barRow.getHoraires());
         viewHolder.bar_adresse.setText(barRow.getAdresse());
+
+        // On récupère la bar au nom correspondant dans la base de données
+        Cursor cursor = barDAO.getDatabase().query(barDAO.TABLE_BAR, barDAO.allColumnBar, barDAO.COLUMN_BAR_NOM + " = ? ", new String[] {barRow.getNom()}, null, null, null);
+        cursor.moveToFirst();
+        Bar bar = barDAO.cursorToBar(cursor);
+        cursor.moveToFirst();
+        // On définit l'image du bouton favori en fonction de l'attribut estFavori
+        if(bar.getEstFavori() == 1) {
+            viewHolder.btn_favori.setImageResource(R.drawable.ic_favorite_enabled);
+            imgBtn.setTag("R.drawable.ic_favorite_enabled");
+        } else {
+            viewHolder.btn_favori.setImageResource(R.drawable.ic_favorite_disabled);
+            imgBtn.setTag("R.drawable.ic_favorite_disabled");
+        }
+
+        // Ajout des Listener aux boutons
         viewHolder.btn_favori.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageButton imgBtn = (ImageButton) v;
+                ContentValues contentValues = new ContentValues();
                 if(imgBtn.getTag().equals("R.drawable.ic_favorite_disabled")) {
                     imgBtn.setImageResource(R.drawable.ic_favorite_enabled);
                     imgBtn.setTag("R.drawable.ic_favorite_enabled");
+                    contentValues.put(barDAO.COLUMN_BAR_FAV,1);
+                    barDAO.updateBar(contentValues,barDAO.COLUMN_BAR_NOM + " = ?",new String[] {barRow.getNom()});
                     genererToast("Bar ajouté aux favoris",500);
                 } else {
                     imgBtn.setImageResource(R.drawable.ic_favorite_disabled);
                     imgBtn.setTag("R.drawable.ic_favorite_disabled");
+                    contentValues.put(barDAO.COLUMN_BAR_FAV,0);
+                    barDAO.updateBar(contentValues,barDAO.COLUMN_BAR_NOM + " = ?",new String[] {barRow.getNom()});
                     genererToast("Bar retiré des favoris",500);
                 }
             }
