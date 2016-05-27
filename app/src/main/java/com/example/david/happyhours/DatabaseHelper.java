@@ -92,19 +92,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Bar bar = new Bar();
                 bar.setNom(columns[0].trim());
                 bar.setAdresse(columns[1].trim());
-                bar.setHoraire_ouv(columns[2].trim());
-                bar.setHoraire_ferm(columns[3].trim());
-                bar.setHoraire_hh_deb(columns[4].trim());
-                bar.setHoraire_hh_fin(columns[5].trim());
-                bar.setImage(columns[6].trim());
-                bar.setEstFavori(Integer.parseInt(columns[7].trim()));
+                bar.setImage(columns[2].trim());
+                bar.setEstFavori(Integer.parseInt(columns[3].trim()));
                 ContentValues values = new ContentValues();
                 values.put(BarDAO.COLUMN_BAR_NOM, bar.getNom());
                 values.put(BarDAO.COLUMN_BAR_ADR, bar.getAdresse());
-                values.put(BarDAO.COLUMN_BAR_HOR_OUV, bar.getHoraire_ouv());
-                values.put(BarDAO.COLUMN_BAR_HOR_FERM, bar.getHoraire_ferm());
-                values.put(BarDAO.COLUMN_BAR_HH_DEB, bar.getHoraire_hh_deb());
-                values.put(BarDAO.COLUMN_BAR_HH_FIN, bar.getHoraire_hh_fin());
                 values.put(BarDAO.COLUMN_BAR_IMG, bar.getImage());
                 values.put(BarDAO.COLUMN_BAR_FAV, bar.getEstFavori());
                 long insertId = database.insert(BarDAO.TABLE_BAR, null,

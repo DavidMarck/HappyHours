@@ -34,25 +34,16 @@ public class Bar {
      * @param id
      * @param nom
      * @param adresse
-     * @param horaire_ouv
-     * @param horaire_ferm
-     * @param horaire_hh_deb
-     * @param horaire_hh_fin
      * @param image
      * @param estFavori
      */
-    public Bar(long id, String nom, String adresse, String horaire_ouv, String horaire_ferm, String horaire_hh_deb, String horaire_hh_fin, String image, int estFavori) {
+    public Bar(long id, String nom, String adresse, String image, int estFavori) {
         this.id = id;
         this.nom = nom;
         this.adresse = adresse;
-        this.horaire_ouv = horaire_ouv;
-        this.horaire_ferm = horaire_ferm;
-        this.horaire_hh_deb = horaire_hh_deb;
-        this.horaire_hh_fin = horaire_hh_fin;
         this.image = image;
         this.estFavori = estFavori;
     }
-
 
     // Getters & Setters
 
@@ -80,38 +71,6 @@ public class Bar {
         this.adresse = adresse;
     }
 
-    public String getHoraire_ouv() {
-        return horaire_ouv;
-    }
-
-    public void setHoraire_ouv(String horaire_ouv) {
-        this.horaire_ouv = horaire_ouv;
-    }
-
-    public String getHoraire_ferm() {
-        return horaire_ferm;
-    }
-
-    public void setHoraire_ferm(String horaire_ferm) {
-        this.horaire_ferm = horaire_ferm;
-    }
-
-    public String getHoraire_hh_deb() {
-        return horaire_hh_deb;
-    }
-
-    public void setHoraire_hh_deb(String horaire_hh_deb) {
-        this.horaire_hh_deb = horaire_hh_deb;
-    }
-
-    public String getHoraire_hh_fin() {
-        return horaire_hh_fin;
-    }
-
-    public void setHoraire_hh_fin(String horaire_hh_fin) {
-        this.horaire_hh_fin = horaire_hh_fin;
-    }
-
     public String getImage() {
         return image;
     }
@@ -136,10 +95,6 @@ public class Bar {
                 "id=" + id +
                 ", nom='" + nom + '\'' +
                 ", adresse='" + adresse + '\'' +
-                ", horaire_ouv=" + horaire_ouv +
-                ", horaire_ferm=" + horaire_ferm +
-                ", horaire_hh_deb=" + horaire_hh_deb +
-                ", horaire_hh_fin=" + horaire_hh_fin +
                 ", image='" + image + '\'' +
                 ", estFavori=" + estFavori +
                 '}';

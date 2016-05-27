@@ -2,16 +2,7 @@ package com.example.david.happyhours;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,10 +21,6 @@ public class BarDAO extends DatabaseDAO {
     public static final String COLUMN_BAR_ID = "_id";
     public static final String COLUMN_BAR_NOM = "nom_bar";
     public static final String COLUMN_BAR_ADR = "adr_bar";
-    public static final String COLUMN_BAR_HOR_OUV = "horaire_ouverture_bar";
-    public static final String COLUMN_BAR_HOR_FERM = "horaire_fermeture_bar";
-    public static final String COLUMN_BAR_HH_DEB = "hh_debut_bar";
-    public static final String COLUMN_BAR_HH_FIN = "hh_fin_bar";
     public static final String COLUMN_BAR_IMG = "image_bar";
     public static final String COLUMN_BAR_FAV = "estFavori";
 
@@ -43,10 +30,6 @@ public class BarDAO extends DatabaseDAO {
             + COLUMN_BAR_ID + " integer primary key autoincrement, "
             + COLUMN_BAR_NOM + " text not null, "
             + COLUMN_BAR_ADR + " text not null, "
-            + COLUMN_BAR_HOR_OUV + " text not null, "
-            + COLUMN_BAR_HOR_FERM + " text not null, "
-            + COLUMN_BAR_HH_DEB + " text not null, "
-            + COLUMN_BAR_HH_FIN + " text not null, "
             + COLUMN_BAR_IMG + " text not null, "
             + COLUMN_BAR_FAV + " integer not null"
             + ");";
@@ -54,8 +37,7 @@ public class BarDAO extends DatabaseDAO {
     public static final String DROP_TABLE_BAR = "DROP TABLE IF EXISTS " + TABLE_BAR;
 
     public static final String[] allColumnBar = {
-            COLUMN_BAR_ID, COLUMN_BAR_NOM, COLUMN_BAR_ADR, COLUMN_BAR_HOR_OUV,
-            COLUMN_BAR_HOR_FERM, COLUMN_BAR_HH_DEB, COLUMN_BAR_HH_FIN,
+            COLUMN_BAR_ID, COLUMN_BAR_NOM, COLUMN_BAR_ADR,
             COLUMN_BAR_IMG, COLUMN_BAR_FAV
     };
 
@@ -78,10 +60,6 @@ public class BarDAO extends DatabaseDAO {
         ContentValues values = new ContentValues();
         values.put(COLUMN_BAR_NOM, bar.getNom());
         values.put(COLUMN_BAR_ADR, bar.getAdresse());
-        values.put(COLUMN_BAR_HOR_OUV, bar.getHoraire_ouv());
-        values.put(COLUMN_BAR_HOR_FERM, bar.getHoraire_ferm());
-        values.put(COLUMN_BAR_HH_DEB, bar.getHoraire_hh_deb());
-        values.put(COLUMN_BAR_HH_FIN, bar.getHoraire_hh_fin());
         values.put(COLUMN_BAR_IMG, bar.getImage());
         values.put(COLUMN_BAR_FAV, bar.getEstFavori());
         long insertId = database.insert(TABLE_BAR, null,
@@ -141,12 +119,8 @@ public class BarDAO extends DatabaseDAO {
         bar.setId(cursor.getLong(0));
         bar.setNom(cursor.getString(1));
         bar.setAdresse(cursor.getString(2));
-        bar.setHoraire_ouv(cursor.getString(3));
-        bar.setHoraire_ferm(cursor.getString(4));
-        bar.setHoraire_hh_deb(cursor.getString(5));
-        bar.setHoraire_hh_fin(cursor.getString(6));
-        bar.setImage(cursor.getString(7));
-        bar.setEstFavori(cursor.getInt(8));
+        bar.setImage(cursor.getString(3));
+        bar.setEstFavori(cursor.getInt(4));
         return bar;
     }
 }

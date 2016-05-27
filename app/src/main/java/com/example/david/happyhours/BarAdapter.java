@@ -3,15 +3,12 @@ package com.example.david.happyhours;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,6 +77,7 @@ public class BarAdapter extends ArrayAdapter<BarRow> {
         Cursor cursor = barDAO.getDatabase().query(barDAO.TABLE_BAR, barDAO.allColumnBar, barDAO.COLUMN_BAR_NOM + " = ? ", new String[] {barRow.getNom()}, null, null, null);
         cursor.moveToFirst();
         Bar bar = barDAO.cursorToBar(cursor);
+        cursor.close();
         // On définit l'image du bouton favori en fonction de l'attribut estFavori
         if(bar.getEstFavori() == 1) {
             viewHolder.btn_favori.setImageResource(R.drawable.ic_favorite_enabled);
