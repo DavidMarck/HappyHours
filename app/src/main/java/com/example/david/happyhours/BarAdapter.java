@@ -8,16 +8,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by David on 23/05/2016.
  */
 public class BarAdapter extends ArrayAdapter<BarRow> {
+
+    public List<BarRow> barsListe;
+    public ArrayList<BarRow> arrayList;
 
     /**
      * Constructeur
@@ -27,6 +33,9 @@ public class BarAdapter extends ArrayAdapter<BarRow> {
      */
     public BarAdapter(Context context, List<BarRow> bars) {
         super(context,0,bars);
+        this.barsListe = bars;
+        arrayList = new ArrayList<BarRow>();
+        arrayList.addAll(barsListe);
     }
 
     /**
@@ -121,6 +130,24 @@ public class BarAdapter extends ArrayAdapter<BarRow> {
         });
 
         return convertView;
+    }
+
+    public void filter (String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+
+        barsListe.clear();
+        if(charText.length() == 0) {
+            barsListe.addAll(arrayList);
+        } else {
+            for(BarRow aBarRow : arrayList) {
+                if (charText.length() != 0 && aBarRow.getNom().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    barsListe.add(aBarRow);
+                } else if (charText.length() != 0 && aBarRow.getAdresse().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    barsListe.add(aBarRow);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 
     private class BarViewHolder {

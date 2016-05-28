@@ -9,8 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -25,6 +27,7 @@ public class accueil extends AppCompatActivity {
 
     private Toolbar toolbar;
     private ListView listViewDrawer,listViewBars;
+    private BarAdapter adapterBarsRows;
     private final String[] drawerItems = new String[]{
             "Favoris","Barathon","Paramètres"
     };
@@ -56,6 +59,12 @@ public class accueil extends AppCompatActivity {
         final MenuItem searchItem = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+            }
+        });
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -67,10 +76,33 @@ public class accueil extends AppCompatActivity {
             }
 
             @Override
-            public boolean onQueryTextChange(String s) {
-                return false;
+            public boolean onQueryTextChange(String searchQuery) {
+                /*if (TextUtils.isEmpty(newText)) {
+                    listViewBars.clearTextFilter();
+                } else {
+                    listViewBars.setFilterText(newText.toString());
+                }*/
+                adapterBarsRows.filter(searchQuery.toString().trim());
+                listViewBars.invalidate();
+                return true;
             }
         });
+
+        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                // Do something when collapsed
+                return true;  // Return true to collapse action view
+            }
+
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                // Do something when expanded
+                return true;  // Return true to expand action view
+            }
+        });
+
+        searchView.setQueryHint("Recherchez un bar ici");
 
         return true;
     }
@@ -80,6 +112,7 @@ public class accueil extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             // Gérer les 'case' ici
+            case R.id.action_search : return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -136,8 +169,9 @@ public class accueil extends AppCompatActivity {
 
         // Instanciation et remplissage de la ListView listant les bars
         listViewBars = (ListView) findViewById(R.id.listViewBars);
+        listViewBars.setTextFilterEnabled(true);
         List<BarRow> barsRows = genererItemsBars();
-        BarAdapter adapterBarsRows = new BarAdapter(accueil.this,barsRows);
+        adapterBarsRows = new BarAdapter(accueil.this,barsRows);
         listViewBars.setAdapter(adapterBarsRows);
 
         // Instanciation des ImageButtons
