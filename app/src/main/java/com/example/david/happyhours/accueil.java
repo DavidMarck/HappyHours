@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -59,6 +61,15 @@ public class accueil extends AppCompatActivity {
         final MenuItem searchItem = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 
+        // Gestion du click sur la loupe (icône SearchView)
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapterBarsRows.filter("");
+                listViewBars.invalidate();
+            }
+        });
+
         searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -77,11 +88,6 @@ public class accueil extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String searchQuery) {
-                /*if (TextUtils.isEmpty(newText)) {
-                    listViewBars.clearTextFilter();
-                } else {
-                    listViewBars.setFilterText(newText.toString());
-                }*/
                 adapterBarsRows.filter(searchQuery.toString().trim());
                 listViewBars.invalidate();
                 return true;
@@ -112,7 +118,11 @@ public class accueil extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             // Gérer les 'case' ici
-            case R.id.action_search : return true;
+            case R.id.action_search :
+                Toast toast = Toast.makeText(this.getApplicationContext(),
+                        "Search View clicked", Toast.LENGTH_SHORT);
+                toast.show();
+                return false;
         }
 
         return super.onOptionsItemSelected(item);

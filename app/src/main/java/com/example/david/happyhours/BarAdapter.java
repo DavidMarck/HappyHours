@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,7 +22,7 @@ import java.util.Locale;
 public class BarAdapter extends ArrayAdapter<BarRow> {
 
     public List<BarRow> barsListe;
-    public ArrayList<BarRow> arrayList;
+    public ArrayList<BarRow> resultRecherche;
 
     /**
      * Constructeur
@@ -34,8 +33,8 @@ public class BarAdapter extends ArrayAdapter<BarRow> {
     public BarAdapter(Context context, List<BarRow> bars) {
         super(context,0,bars);
         this.barsListe = bars;
-        arrayList = new ArrayList<BarRow>();
-        arrayList.addAll(barsListe);
+        resultRecherche = new ArrayList<BarRow>();
+        resultRecherche.addAll(barsListe);
     }
 
     /**
@@ -132,24 +131,6 @@ public class BarAdapter extends ArrayAdapter<BarRow> {
         return convertView;
     }
 
-    public void filter (String charText) {
-        charText = charText.toLowerCase(Locale.getDefault());
-
-        barsListe.clear();
-        if(charText.length() == 0) {
-            barsListe.addAll(arrayList);
-        } else {
-            for(BarRow aBarRow : arrayList) {
-                if (charText.length() != 0 && aBarRow.getNom().toLowerCase(Locale.getDefault()).contains(charText)) {
-                    barsListe.add(aBarRow);
-                } else if (charText.length() != 0 && aBarRow.getAdresse().toLowerCase(Locale.getDefault()).contains(charText)) {
-                    barsListe.add(aBarRow);
-                }
-            }
-        }
-        notifyDataSetChanged();
-    }
-
     private class BarViewHolder {
         public TextView bar_nom,bar_hh,bar_adresse,bar_horaires;
         public ImageButton btn_favori,btn_barathon,btn_geoloc;
@@ -173,5 +154,28 @@ public class BarAdapter extends ArrayAdapter<BarRow> {
                 toast.cancel();
             }
         }, duree);
+    }
+
+    /**
+     * Gestion du filtrage de la recharche (SearchView)
+     *
+     * @param charText séquence à filtrer
+     */
+    public void filter (String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+
+        barsListe.clear();
+        if(charText.length() == 0) {
+            barsListe.addAll(resultRecherche);
+        } else {
+            for(BarRow aBarRow : resultRecherche) {
+                if (charText.length() != 0 && aBarRow.getNom().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    barsListe.add(aBarRow);
+                } else if (charText.length() != 0 && aBarRow.getAdresse().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    barsListe.add(aBarRow);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }
