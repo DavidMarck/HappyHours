@@ -1,7 +1,9 @@
 package com.example.david.happyhours;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,6 +15,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -30,9 +33,7 @@ public class accueil extends AppCompatActivity {
     private Toolbar toolbar;
     private ListView listViewDrawer,listViewBars;
     private BarAdapter adapterBarsRows;
-    private final String[] drawerItems = new String[]{
-            "Favoris","Barathon","Paramètres"
-    };
+    private String[] drawerItems;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private ImageButton btn_favori,btn_barathon,btn_geoloc;
@@ -166,16 +167,19 @@ public class accueil extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        // Instanciation d'un Drawer
+        // On récupère les items du Drawer et on l'instancie
+        this.drawerItems = getResources().getStringArray(R.array.drawer_array);
         this.drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        this.drawerToggle = new ActionBarDrawerToggle(this,this.drawerLayout,0,0);
-        this.drawerLayout.addDrawerListener(this.drawerToggle);
-
         // Instanciation et remplissage de la ListView contenue dans le Drawer
         listViewDrawer = (ListView) findViewById(R.id.listViewDrawer);
         ArrayAdapter<String> adapterDrawerItems = new ArrayAdapter<String>(accueil.this,
-        android.R.layout.simple_list_item_1, drawerItems);
+                android.R.layout.simple_list_item_1, drawerItems);
         listViewDrawer.setAdapter(adapterDrawerItems);
+        // Ajout d'un OnItemClickListener à la liste
+        //listViewDrawer.setOnItemClickListener(new DrawerItemClickListener());
+
+        this.drawerToggle = new ActionBarDrawerToggle(this,this.drawerLayout,0,0);
+        this.drawerLayout.addDrawerListener(this.drawerToggle);
 
         // Instanciation et remplissage de la ListView listant les bars
         listViewBars = (ListView) findViewById(R.id.listViewBars);

@@ -5,46 +5,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <!-- Layout principal (content_frame) -->
+    <FrameLayout
+        android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.example.david.happyhours.accueil">
+        android:layout_height="match_parent">
 
-
-        <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:background="#4169e1"
-            android:minHeight="?android:attr/actionBarSize" />
-
-        <LinearLayout
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/layoutListe"
-            android:layout_below="@id/toolbar"
-            android:orientation="vertical">
+            tools:context="com.example.david.happyhours.accueil">
 
-            <ListView
-                android:layout_width="wrap_content"
+
+            <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/listViewBars" />
+                android:layout_alignParentTop="true"
+                android:background="#4169e1"
+                android:minHeight="?android:attr/actionBarSize" />
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/layoutListe"
+                android:layout_below="@id/toolbar"
+                android:orientation="vertical">
 
-    </RelativeLayout>
+                <ListView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/listViewBars" />
 
-    <!-- Layout contenant le Drawer.
-    Voir @layout/drawer.xml pour gérer le contenu du Drawer -->
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="left">
+            </LinearLayout>
 
-        <include layout="@layout/drawer"/>
+        </RelativeLayout>
     </FrameLayout>
+
+    <!-- Listview du Drawer -->
+    <ListView android:id="@+id/listViewDrawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/black"
+        android:dividerHeight="1dp"
+        android:background="#FFF"/>
+
 
 </android.support.v4.widget.DrawerLayout>
