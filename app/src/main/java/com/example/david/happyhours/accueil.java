@@ -50,6 +50,9 @@ public class accueil extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accueil);
+        setTitle("Happy Hours - Accueil");
+        setContentView(R.layout.activity_accueil);
+
 
         initialisations();
     }

@@ -45,6 +45,8 @@ public class favoris extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favoris);
+        setTitle("Happy Hours - Favoris");
+        setContentView(R.layout.activity_favoris);
 
         initialisations();
     }
