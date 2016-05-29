@@ -125,7 +125,17 @@ public class BarAdapter extends ArrayAdapter<BarRow> {
                                     imgBtn.setTag("R.drawable.ic_favorite_disabled");
                                     contentValues.put(barDAO.COLUMN_BAR_FAV,0);
                                     barDAO.updateBar(contentValues,barDAO.COLUMN_BAR_NOM + " = ?",new String[] {barRow.getNom()});
-                                    genererToast("Bar \"" + barRow.getNom() + "\" retiré des favoris",500);
+                                    if(getContext().getClass().getSimpleName().equals("favoris")) {
+                                        for(BarRow unBarRow : barsListe) {
+                                            if(unBarRow.getNom().equals(barRow.getNom())){
+                                                barsListe.remove(unBarRow);
+                                                break;
+                                            }
+                                        }
+                                        notifyDataSetChanged();
+                                    } else {
+                                        genererToast("Bar \"" + barRow.getNom() + "\" retiré des favoris",500);
+                                    }
                                 }
                             })
                             .setNegativeButton("Non", null)
