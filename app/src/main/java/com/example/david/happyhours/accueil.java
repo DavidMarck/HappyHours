@@ -29,8 +29,8 @@ import java.util.TimeZone;
 
 import static android.support.v4.app.ActivityCompat.startActivity;
 
-/**********                                                      Intent intent = new Intent(accueil.this, favoris.class);
-code pour ouvrir une nouvelle activité                           startActivity(intent);
+/**********                              Intent intent = new Intent(accueil.this, favoris.class);
+code pour ouvrir une nouvelle activité   startActivity(intent);
 **********/
 
 public class accueil extends AppCompatActivity {
@@ -38,12 +38,12 @@ public class accueil extends AppCompatActivity {
     private static Context context;
 
     private Toolbar toolbar;
-    private ListView listViewDrawer,listViewBars;
+    private ListView listViewDrawer, listViewBars;
     private BarAdapter adapterBarsRows;
     private String[] drawerItems;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
-    private ImageButton btn_favori,btn_barathon,btn_geoloc;
+    private ImageButton btn_favori, btn_barathon, btn_geoloc;
 
     private DatabaseDAO dbDAO;
     private BarDAO barDAO;
@@ -124,9 +124,9 @@ public class accueil extends AppCompatActivity {
     //gère le click sur une action de l'ActionBar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             // Gérer les 'case' ici
-            case R.id.action_search :
+            case R.id.action_search:
                 Toast toast = Toast.makeText(this.getApplicationContext(),
                         "Search View clicked", Toast.LENGTH_SHORT);
                 toast.show();
@@ -142,6 +142,7 @@ public class accueil extends AppCompatActivity {
         // synchroniser le drawerToggle après la restauration via onRestoreInstanceState
         drawerToggle.syncState();
     }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -149,10 +150,10 @@ public class accueil extends AppCompatActivity {
     }
 
     /**
-    * Initialisations
+     * Initialisations
      * --> Instanciations composants graphiques
      * --> Ouverture BDD (DAO)
-    * */
+     */
     public void initialisations() {
 
         context = this.getApplicationContext();
@@ -183,16 +184,16 @@ public class accueil extends AppCompatActivity {
                 android.R.layout.simple_list_item_1, drawerItems);
         listViewDrawer.setAdapter(adapterDrawerItems);
         // Ajout d'un OnItemClickListener à la liste
-        //listViewDrawer.setOnItemClickListener(new DrawerItemClickListener());
+        listViewDrawer.setOnItemClickListener(new DrawerItemClickListener());
 
-        this.drawerToggle = new ActionBarDrawerToggle(this,this.drawerLayout,0,0);
+        this.drawerToggle = new ActionBarDrawerToggle(this, this.drawerLayout, 0, 0);
         this.drawerLayout.addDrawerListener(this.drawerToggle);
 
         // Instanciation et remplissage de la ListView listant les bars
         listViewBars = (ListView) findViewById(R.id.listViewBars);
         listViewBars.setTextFilterEnabled(true);
         List<BarRow> barsRows = genererItemsBars();
-        adapterBarsRows = new BarAdapter(accueil.this,barsRows);
+        adapterBarsRows = new BarAdapter(accueil.this, barsRows);
         listViewBars.setAdapter(adapterBarsRows);
 
         // Instanciation des ImageButtons
@@ -223,18 +224,48 @@ public class accueil extends AppCompatActivity {
         // On récupère les informations relatives à l'horodatage
         Calendar localCalendar = Calendar.getInstance(TimeZone.getDefault());
         // On récupère le numéro du jour de la semaine actuel via Calendar, qu'on modifie pour correspondre à la base de données (le jour 1 étant Dimanche dans Calendar et Lundi dans la base)
-        int currentDayOfWeek = localCalendar.get(Calendar.DAY_OF_WEEK) == 1 ? 7 : (localCalendar.get(Calendar.DAY_OF_WEEK))-1;
+        int currentDayOfWeek = localCalendar.get(Calendar.DAY_OF_WEEK) == 1 ? 7 : (localCalendar.get(Calendar.DAY_OF_WEEK)) - 1;
 
-        for(Bar unBar : barsBDD) {
-            ouverturesBDD = ouvertureDAO.getAllOuverture(unBar.getId(),currentDayOfWeek);
+        for (Bar unBar : barsBDD) {
+            ouverturesBDD = ouvertureDAO.getAllOuverture(unBar.getId(), currentDayOfWeek);
             horaire_ouv = ouverturesBDD.get(0).getHoraire_ouv();
             horaire_ferm = ouverturesBDD.get(0).getHoraire_ferm();
             horaire_hh_deb = ouverturesBDD.get(0).getHoraire_hh_deb();
             horaire_hh_fin = ouverturesBDD.get(0).getHoraire_hh_fin();
-            barsRows.add(new BarRow(unBar.getNom(),horaire_hh_deb,
-                    horaire_hh_fin,unBar.getAdresse(),horaire_ouv,
+            barsRows.add(new BarRow(unBar.getNom(), horaire_hh_deb,
+                    horaire_hh_fin, unBar.getAdresse(), horaire_ouv,
                     horaire_ferm));
         }
         return barsRows;
     }
+
+    /**
+     * Classe de type Listener liée aux items du Drawer
+     */
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    }
+
+    /**
+     * Actions lancées selon l'item sélectionné dans le drawer
+     *
+     * @param position numéro d'ordre de l'item dans la liste
+     */
+    private void selectItem(int position) {
+        switch(position) {
+            case 0:
+                Intent accueil = new Intent(accueil.this, accueil.class);
+                startActivity(accueil);
+                break;
+            case 1:
+                Intent favoris = new Intent(accueil.this, favoris.class);
+                startActivity(favoris);
+                break;
+            default:
+        }
+    }
+
 }
