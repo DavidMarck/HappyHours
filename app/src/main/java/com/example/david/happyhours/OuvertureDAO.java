@@ -12,7 +12,7 @@ import java.util.List;
 public class OuvertureDAO extends DatabaseDAO {
 
     // nom du fichier .csv contenant les données à entrer dans la table ouverture
-    public static final String CSV_OUVERTURE = "donnees_Ouverture.csv";
+    public static final String CSV_OUVERTURE = "donnees_ouverture.csv";
 
     // TABLE OUVERTURE - colonnes et requêtes de création/suppresion
 

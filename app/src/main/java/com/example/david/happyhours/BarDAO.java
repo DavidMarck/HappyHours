@@ -109,6 +109,26 @@ public class BarDAO extends DatabaseDAO {
     }
 
     /**
+     * Obtention des bars favoris sous forme de List
+     *
+     * @return liste des bars enregistrés dans la table bar
+     */
+    public List<Bar> getAllFavoris() {
+        List<Bar> tousLesBar = new ArrayList<Bar>();
+
+        Cursor cursor = database.query(TABLE_BAR, allColumnBar, COLUMN_BAR_FAV + " = ?", new String[]{"1"}, null, null, COLUMN_BAR_NOM);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Bar Bar = cursorToBar(cursor);
+            tousLesBar.add(Bar);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return tousLesBar;
+    }
+
+    /**
      * Convertit un objet de type Cursor en un objet de type Bar
      *
      * @param cursor

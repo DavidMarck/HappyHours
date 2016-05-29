@@ -29,10 +29,6 @@ import java.util.TimeZone;
 
 import static android.support.v4.app.ActivityCompat.startActivity;
 
-/**********                              Intent intent = new Intent(accueil.this, favoris.class);
-code pour ouvrir une nouvelle activité   startActivity(intent);
-**********/
-
 public class accueil extends AppCompatActivity {
 
     private static Context context;
@@ -152,7 +148,7 @@ public class accueil extends AppCompatActivity {
     /**
      * Initialisations
      * --> Instanciations composants graphiques
-     * --> Ouverture BDD (DAO)
+     * --> Ouverture BDD (DAOs)
      */
     public void initialisations() {
 
