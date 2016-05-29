@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">HappyHours</string>
+    <string name="app_name">Happy Hours</string>
     <string name="action_search">Rechercher</string>
+    <string name="drawer_open">open drawer</string>
+    <string name="drawer_close">close drawer</string>
+
 
     <string-array name="items">
         <item>Item 1</item>
@@ -10,4 +13,10 @@
         <item>Item 5</item>
         <item>Item 6</item>
     </string-array>
+    <string name="title_activity_test">Test</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
