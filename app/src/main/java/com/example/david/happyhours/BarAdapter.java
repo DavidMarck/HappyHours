@@ -2,9 +2,11 @@ package com.example.david.happyhours;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,7 +104,7 @@ public class BarAdapter extends ArrayAdapter<BarRow> {
         viewHolder.btn_favori.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ContentValues contentValues = new ContentValues();
+                final ContentValues contentValues = new ContentValues();
                 if(imgBtn.getTag().equals("R.drawable.ic_favorite_disabled")) {
                     imgBtn.setImageResource(R.drawable.ic_favorite_enabled);
                     imgBtn.setTag("R.drawable.ic_favorite_enabled");
@@ -110,11 +112,24 @@ public class BarAdapter extends ArrayAdapter<BarRow> {
                     barDAO.updateBar(contentValues,barDAO.COLUMN_BAR_NOM + " = ?",new String[] {barRow.getNom()});
                     genererToast("Bar \"" + barRow.getNom() + "\" ajouté aux favoris",500);
                 } else {
-                    imgBtn.setImageResource(R.drawable.ic_favorite_disabled);
-                    imgBtn.setTag("R.drawable.ic_favorite_disabled");
-                    contentValues.put(barDAO.COLUMN_BAR_FAV,0);
-                    barDAO.updateBar(contentValues,barDAO.COLUMN_BAR_NOM + " = ?",new String[] {barRow.getNom()});
-                    genererToast("Bar \"" + barRow.getNom() + "\" retiré des favoris",500);
+                    // On demande confirmation pour enlever le bar des favoris
+                    new AlertDialog.Builder(getContext())
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle("Retrait des favoris")
+                            .setMessage("Êtes-vous sûr de vouloir retirer le bar \"" + barRow.getNom() + "\" des favoris?")
+                            .setPositiveButton("Oui", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    imgBtn.setImageResource(R.drawable.ic_favorite_disabled);
+                                    imgBtn.setTag("R.drawable.ic_favorite_disabled");
+                                    contentValues.put(barDAO.COLUMN_BAR_FAV,0);
+                                    barDAO.updateBar(contentValues,barDAO.COLUMN_BAR_NOM + " = ?",new String[] {barRow.getNom()});
+                                    genererToast("Bar \"" + barRow.getNom() + "\" retiré des favoris",500);
+                                }
+                            })
+                            .setNegativeButton("Non", null)
+                            .show();
                 }
             }
         });
