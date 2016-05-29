@@ -2,6 +2,7 @@ package com.example.david.happyhours;
 
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
@@ -25,6 +26,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
+
+import static android.support.v4.app.ActivityCompat.startActivity;
+
+/**********                                                      Intent intent = new Intent(accueil.this, favoris.class);
+code pour ouvrir une nouvelle activité                           startActivity(intent);
+**********/
 
 public class accueil extends AppCompatActivity {
 

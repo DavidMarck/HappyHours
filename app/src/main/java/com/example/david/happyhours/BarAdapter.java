@@ -2,6 +2,7 @@ package com.example.david.happyhours;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import static android.support.v4.app.ActivityCompat.startActivity;
 
 /**
  * Created by David on 23/05/2016.
